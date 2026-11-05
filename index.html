@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Koka Crunch · Order Online</title>
+  <meta name="description" content="Order from Koka Crunch cafe, Kokapet, Hyderabad. Browse the menu and order on WhatsApp." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="logo" aria-hidden="true">KC</div>
+      <h1 id="cafe-name">Koka Crunch</h1>
+      <p id="tagline" class="tagline"></p>
+      <p id="delivery-note" class="delivery-note"></p>
+    </div>
+  </header>
+
+  <div class="toolbar" id="categories">
+    <input id="search" type="search" placeholder="Search the menu…" aria-label="Search the menu" />
+    <div class="filters">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip" data-filter="veg"><span class="dot veg"></span>Veg</button>
+      <button class="chip" data-filter="nonveg"><span class="dot nonveg"></span>Non-veg</button>
+    </div>
+    <nav class="cat-nav" id="cat-nav" aria-label="Menu categories"></nav>
+  </div>
+
+  <main id="menu" class="menu"></main>
+
+  <footer class="footer">
+    <p>Koka Crunch · Kokapet, Hyderabad</p>
+  </footer>
+
+  <!-- Floating cart bar -->
+  <button id="cart-bar" class="cart-bar hidden" aria-label="View cart">
+    <span id="cart-bar-count">0 items</span>
+    <span>View cart · <strong id="cart-bar-total">₹0</strong></span>
+  </button>
+
+  <!-- Cart / checkout drawer -->
+  <div id="overlay" class="overlay hidden"></div>
+  <aside id="drawer" class="drawer hidden" aria-label="Your order">
+    <div class="drawer-head">
+      <h2 id="drawer-title">Your order</h2>
+      <button id="close-drawer" class="icon-btn" aria-label="Close">✕</button>
+    </div>
+
+    <section id="cart-view">
+      <ul id="cart-list" class="cart-list"></ul>
+      <div class="total-row"><span>Total</span><strong id="cart-total">₹0</strong></div>
+      <button id="to-checkout" class="btn primary wide">Continue to checkout</button>
+    </section>
+
+    <section id="checkout-view" class="hidden">
+      <form id="checkout-form" novalidate>
+        <label>Your name*
+          <input name="name" required autocomplete="name" />
+        </label>
+        <label>Phone number*
+          <input name="phone" required type="tel" inputmode="numeric" pattern="[0-9+ ]{10,15}" autocomplete="tel" placeholder="10-digit mobile" />
+        </label>
+        <label>Full delivery address*
+          <textarea name="address" required rows="3" autocomplete="street-address" placeholder="Flat / house no., building, street, area"></textarea>
+        </label>
+        <label>Landmark
+          <input name="landmark" placeholder="Near…" />
+        </label>
+
+        <div class="location-box">
+          <div>
+            <strong>Current location*</strong>
+            <p id="loc-status" class="muted">Helps our rider find you quickly.</p>
+          </div>
+          <button type="button" id="get-location" class="btn outline">📍 Share my location</button>
+        </div>
+
+        <label>Cooking / delivery instructions
+          <textarea name="notes" rows="2" placeholder="Less spicy, ring the bell, etc."></textarea>
+        </label>
+
+        <div class="upi-notice" role="note">
+          <div class="upi-icon">₹</div>
+          <div>
+            <strong>Payment by UPI, after ordering</strong>
+            <p id="upi-text"></p>
+          </div>
+        </div>
+
+        <div class="total-row"><span>Amount to pay</span><strong id="checkout-total">₹0</strong></div>
+        <p id="form-error" class="error hidden"></p>
+        <button type="submit" class="btn whatsapp wide">Place order on WhatsApp</button>
+        <button type="button" id="back-to-cart" class="btn ghost wide">← Back to cart</button>
+      </form>
+    </section>
+
+    <section id="done-view" class="hidden">
+      <div class="done">
+        <div class="done-icon">✓</div>
+        <h3>Almost done!</h3>
+        <p>WhatsApp should open with your order. <strong>Please press Send</strong> in WhatsApp so we receive it.</p>
+        <p class="muted">Our staff will call you shortly to confirm and share UPI payment details.</p>
+        <a id="resend-link" class="btn whatsapp wide" target="_blank" rel="noopener">Open WhatsApp again</a>
+        <button id="new-order" class="btn ghost wide">Start a new order</button>
+      </div>
+    </section>
+  </aside>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

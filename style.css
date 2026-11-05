@@ -1,13 +1,13 @@
 :root {
-  --bg: #fff8ef;
+  --bg: #f6f2e3;
   --card: #ffffff;
   --ink: #2b1a12;
   --muted: #7a6558;
-  --brand: #e8590c;      /* crunchy orange */
-  --brand-dark: #b8430a;
-  --cocoa: #3d2318;      /* koka brown */
-  --gold: #ffc94a;
-  --line: #f0e2d3;
+  --brand: #a3161a;      /* menu red */
+  --brand-dark: #7e0f12;
+  --cocoa: #7e0f12;
+  --gold: #f7a21b;       /* logo orange */
+  --line: #e8dfc7;
   --veg: #1f9d55;
   --nonveg: #c0392b;
   --wa: #25d366;
@@ -32,9 +32,9 @@ button { font: inherit; cursor: pointer; }
 /* Hero */
 .hero {
   background:
-    radial-gradient(circle at 15% 20%, rgba(255, 201, 74, 0.35) 0 60px, transparent 61px),
-    radial-gradient(circle at 85% 70%, rgba(255, 201, 74, 0.25) 0 90px, transparent 91px),
-    linear-gradient(135deg, var(--cocoa), #5a3222);
+    radial-gradient(circle at 12% 18%, rgba(247, 162, 27, 0.28) 0 70px, transparent 71px),
+    radial-gradient(circle at 88% 78%, rgba(247, 162, 27, 0.2) 0 100px, transparent 101px),
+    linear-gradient(135deg, #a3161a, #6e0d10);
   color: #fff;
   text-align: center;
   padding: 40px 16px 32px;
@@ -48,6 +48,8 @@ button { font: inherit; cursor: pointer; }
   display: grid; place-items: center;
   font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 1.6rem;
 }
+.logo-img { width: min(250px, 65vw); height: auto; display: block; margin: 0 auto 8px; filter: drop-shadow(0 6px 14px rgba(0,0,0,0.3)); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .hero h1 { font-size: clamp(2rem, 6vw, 3rem); letter-spacing: 0.5px; }
 .tagline { margin: 6px 0 0; opacity: 0.9; }
 .delivery-note {
@@ -115,7 +117,7 @@ button { font: inherit; cursor: pointer; }
   flex: none; border: 1.5px solid var(--brand); color: var(--brand); background: #fff;
   border-radius: 10px; padding: 8px 18px; font-weight: 700;
 }
-.add-btn:hover { background: #fff1e8; }
+.add-btn:hover { background: #fdeceb; }
 .qty {
   flex: none; display: inline-flex; align-items: center;
   background: var(--brand); color: #fff; border-radius: 10px; overflow: hidden;
@@ -130,7 +132,7 @@ button { font: inherit; cursor: pointer; }
   display: flex; justify-content: space-between; align-items: center;
   padding: 14px 18px; border: 0; border-radius: 14px;
   background: var(--brand); color: #fff; font-weight: 600;
-  box-shadow: 0 10px 30px rgba(232, 89, 12, 0.35);
+  box-shadow: 0 10px 30px rgba(163, 22, 26, 0.35);
 }
 
 /* Drawer */
@@ -207,3 +209,24 @@ form .invalid { border-color: var(--nonveg); background: #fff6f5; }
 @media (max-width: 480px) {
   .location-box { flex-direction: column; align-items: stretch; }
 }
+
+/* Badges, legend, store-only */
+.badge { display: inline-grid; place-items: center; font-size: 0.85rem; line-height: 1; }
+.badge.special { color: var(--brand); }
+.badge.musttry { width: 16px; height: 16px; border-radius: 50%; background: var(--brand); color: #fff; font-size: 0.65rem; }
+.legend { max-width: 960px; margin: 10px auto 0; padding: 0 16px; display: flex; gap: 16px; color: var(--muted); font-size: 0.85rem; }
+.legend > span { display: inline-flex; gap: 6px; align-items: center; }
+.store-note {
+  margin: -4px 0 12px; padding: 8px 12px; border-radius: 10px;
+  background: #fff; border: 1px dashed var(--brand); color: var(--brand); font-weight: 600; font-size: 0.9rem;
+}
+.store-only .item { box-shadow: none; border: 1px solid var(--line); }
+.store-tag {
+  flex: none; font-size: 0.75rem; font-weight: 700; color: var(--muted);
+  border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; background: var(--bg);
+}
+.item-name { display: block; line-height: 1.35; }
+.item-name .dot { vertical-align: -1px; margin-right: 6px; }
+.item-name .badge { vertical-align: -2px; margin-right: 6px; }
+.footer a { color: var(--brand); font-weight: 600; text-decoration: none; }
+.footer-title { font-weight: 700; color: var(--ink); }

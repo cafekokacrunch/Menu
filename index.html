@@ -13,8 +13,8 @@
 <body>
   <header class="hero">
     <div class="hero-inner">
-      <div class="logo" aria-hidden="true">KC</div>
-      <h1 id="cafe-name">Koka Crunch</h1>
+      <img class="logo-img" src="logo.png" alt="Cafe Koka Crunch" width="600" height="430" />
+      <h1 id="cafe-name" class="sr-only">Cafe Koka Crunch</h1>
       <p id="tagline" class="tagline"></p>
       <p id="delivery-note" class="delivery-note"></p>
     </div>
@@ -30,10 +30,21 @@
     <nav class="cat-nav" id="cat-nav" aria-label="Menu categories"></nav>
   </div>
 
+  <div class="legend">
+    <span><span class="badge special">♛</span> House Special</span>
+    <span><span class="badge musttry">★</span> Must Try</span>
+  </div>
+
   <main id="menu" class="menu"></main>
 
   <footer class="footer">
-    <p>Koka Crunch · Kokapet, Hyderabad</p>
+    <p class="footer-title">Cafe Koka Crunch · Kokapet, Hyderabad</p>
+    <p>
+      <a id="call-link" href="#">📞 <span id="phone-display"></span></a> ·
+      <a id="ig-link" href="#" target="_blank" rel="noopener">Instagram</a> ·
+      <a id="fb-link" href="#" target="_blank" rel="noopener">Facebook</a>
+    </p>
+    <p class="muted">Also on Zomato, Swiggy, ownly &amp; magicpin</p>
   </footer>
 
   <!-- Floating cart bar -->

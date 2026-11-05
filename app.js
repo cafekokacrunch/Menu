@@ -9,6 +9,7 @@
     cat.items.forEach((it) => {
       it.id = slug(cat.category + "-" + it.name);
       it.category = cat.category;
+      it.storeOnly = !!cat.storeOnly;
       items[it.id] = it;
     })
   );
@@ -16,7 +17,7 @@
   // ---------- State ----------
   let cart = {};
   try { cart = JSON.parse(localStorage.getItem("kc-cart") || "{}"); } catch (e) {}
-  Object.keys(cart).forEach((id) => { if (!items[id]) delete cart[id]; });
+  Object.keys(cart).forEach((id) => { if (!items[id] || items[id].storeOnly) delete cart[id]; });
   let filter = "all";
   let query = "";
   let location = null; // {lat, lng, acc}
@@ -31,12 +32,23 @@
   $("#tagline").textContent = SETTINGS.tagline;
   $("#delivery-note").textContent = SETTINGS.deliveryNote;
   $("#upi-text").textContent = SETTINGS.upiNote;
+  $("#phone-display").textContent = SETTINGS.phoneDisplay;
+  $("#call-link").href = "tel:+" + SETTINGS.whatsappNumber;
+  $("#ig-link").href = SETTINGS.instagram;
+  $("#fb-link").href = SETTINGS.facebook;
 
   // ---------- Menu rendering ----------
   function controlHTML(id) {
+    if (items[id].storeOnly) return `<span class="store-tag">In store</span>`;
     const q = cart[id] || 0;
     if (!q) return `<button class="add-btn" data-add="${id}">ADD</button>`;
     return `<div class="qty"><button data-dec="${id}" aria-label="Remove one">−</button><span>${q}</span><button data-inc="${id}" aria-label="Add one">+</button></div>`;
+  }
+
+  function badgeHTML(it) {
+    if (it.badge === "special") return `<span class="badge special" title="House Special">♛</span>`;
+    if (it.badge === "musttry") return `<span class="badge musttry" title="Must Try">★</span>`;
+    return "";
   }
 
   function renderMenu() {
@@ -52,11 +64,13 @@
       if (!list.length) return;
       const cid = slug(cat.category);
       nav += `<a href="#${cid}" data-cat="${cid}">${cat.category}</a>`;
-      html += `<section class="category" id="${cid}"><h2>${cat.category}</h2><div class="items">`;
+      html += `<section class="category${cat.storeOnly ? " store-only" : ""}" id="${cid}"><h2>${cat.category}</h2>`;
+      if (cat.storeOnly) html += `<p class="store-note">🏪 ${STORE_ONLY_NOTE}</p>`;
+      html += `<div class="items">`;
       list.forEach((it) => {
         html += `<article class="item">
           <div class="item-info">
-            <div class="item-name"><span class="dot ${it.type}" title="${it.type === "veg" ? "Veg" : "Non-veg"}"></span>${it.name}</div>
+            <div class="item-name"><span class="dot ${it.type}" title="${it.type === "veg" ? "Veg" : "Non-veg"}"></span>${badgeHTML(it)}${it.name}</div>
             ${it.desc ? `<p class="item-desc">${it.desc}</p>` : ""}
             <div class="item-price">${money(it.price)}</div>
           </div>

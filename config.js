@@ -10,8 +10,8 @@ const SETTINGS = {
   // WhatsApp number that receives orders: country code + number, digits only.
   whatsappNumber: "917396827878",
   phoneDisplay: "+91 73968 27878",
-  instagram: "https://instagram.com/kokacrunch_cafe",
-  facebook: "https://facebook.com/kokacrunchcafe",
+  instagram: "https://www.instagram.com/kokacrunch_karaoke_cafe/",
+  facebook: "https://www.facebook.com/kokacrunchcafe",
   currency: "₹",
   deliveryNote: "Free delivery · 100% Halal certified",
   upiNote:

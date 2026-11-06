@@ -13,6 +13,10 @@ const SETTINGS = {
   instagram: "https://www.instagram.com/kokacrunch_karaoke_cafe/",
   facebook: "https://www.facebook.com/kokacrunchcafe",
   currency: "₹",
+  // Delivery area. Set cafeLocation to the cafe's map pin, e.g. { lat: 17.3900, lng: 78.3300 }.
+  // While it is null, orders are accepted from any distance.
+  cafeLocation: null,
+  deliveryRadiusKm: 5,
   deliveryNote: "Free delivery · 100% Halal certified",
   upiNote:
     "No online payment needed now. After you place the order, our staff will call you and share UPI payment details. Please pay via UPI to confirm your order.",

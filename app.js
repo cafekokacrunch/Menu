@@ -205,10 +205,19 @@
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         location = { lat: pos.coords.latitude, lng: pos.coords.longitude, acc: Math.round(pos.coords.accuracy) };
+        if (SETTINGS.cafeLocation) location.km = distanceKm(SETTINGS.cafeLocation, location);
+        $("#get-location").textContent = "📍 Update location";
+        if (tooFar()) {
+          box.classList.remove("ok");
+          box.classList.add("invalid");
+          status.textContent = outOfRangeMsg();
+          return;
+        }
         box.classList.remove("invalid");
         box.classList.add("ok");
         $("#form-error").classList.add("hidden");
-        status.innerHTML = `Location captured ✓ (±${location.acc} m) · <a href="${mapsLink()}" target="_blank" rel="noopener">check on map</a>`;
+        const dist = location.km != null ? ` · ${location.km.toFixed(1)} km from cafe` : "";
+        status.innerHTML = `Location captured ✓ (±${location.acc} m)${dist} · <a href="${mapsLink()}" target="_blank" rel="noopener">check on map</a>`;
         $("#get-location").textContent = "📍 Update location";
       },
       (err) => {
@@ -220,6 +229,17 @@
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
     );
   });
+
+  function distanceKm(a, b) {
+    const R = 6371, rad = (d) => (d * Math.PI) / 180;
+    const dLat = rad(b.lat - a.lat), dLng = rad(b.lng - a.lng);
+    const h = Math.sin(dLat / 2) ** 2 + Math.cos(rad(a.lat)) * Math.cos(rad(b.lat)) * Math.sin(dLng / 2) ** 2;
+    return 2 * R * Math.asin(Math.sqrt(h));
+  }
+  const tooFar = () =>
+    SETTINGS.cafeLocation && location && location.km > SETTINGS.deliveryRadiusKm;
+  const outOfRangeMsg = () =>
+    `Sorry, you're about ${location.km.toFixed(1)} km away. We deliver only within ${SETTINGS.deliveryRadiusKm} km of the cafe. You're welcome to visit us or call ${SETTINGS.phoneDisplay}.`;
 
   const mapsLink = () => `https://www.google.com/maps?q=${location.lat.toFixed(6)},${location.lng.toFixed(6)}`;
 
@@ -243,6 +263,11 @@
       problems.push("location");
     }
     if (!count()) problems.push("cart");
+    if (!problems.length && tooFar()) {
+      err.textContent = outOfRangeMsg();
+      err.classList.remove("hidden");
+      return;
+    }
 
     if (problems.length) {
       const msgs = { name: "your name", phone: "a valid phone number", address: "your delivery address", location: "your current location (tap Share my location)", cart: "at least one item" };
@@ -278,6 +303,7 @@
     lines.push(`Address: ${f.address.value.trim()}`);
     if (f.landmark.value.trim()) lines.push(`Landmark: ${f.landmark.value.trim()}`);
     lines.push(`Location: ${mapsLink()}`);
+    if (location.km != null) lines.push(`Distance: ~${location.km.toFixed(1)} km`);
     if (f.notes.value.trim()) { lines.push(""); lines.push(`Notes: ${f.notes.value.trim()}`); }
 
     lastWaUrl = `https://wa.me/${SETTINGS.whatsappNumber}?text=${encodeURIComponent(lines.join("\n"))}`;

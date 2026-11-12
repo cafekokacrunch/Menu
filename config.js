@@ -15,7 +15,7 @@ const SETTINGS = {
   currency: "₹",
   // Delivery area. Set cafeLocation to the cafe's map pin, e.g. { lat: 17.3900, lng: 78.3300 }.
   // While it is null, orders are accepted from any distance.
-  cafeLocation: null,
+  cafeLocation: { lat: 17.396493, lng: 78.336933 },
   deliveryRadiusKm: 5,
   deliveryNote: "Free delivery · 100% Halal certified",
   upiNote:
